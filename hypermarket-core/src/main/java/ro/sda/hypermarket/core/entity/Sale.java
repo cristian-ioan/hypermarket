@@ -2,7 +2,6 @@ package ro.sda.hypermarket.core.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,15 +26,7 @@ public class Sale {
     private Client client;
 
     @OneToMany(mappedBy = "sale")
-    private Set<SaleProduct> saleProductSale;
-
-    public Set<SaleProduct> getSaleProductSet() {
-        return saleProductSale;
-    }
-
-    public void setSaleProductSet(Set<SaleProduct> saleProductSale) {
-        this.saleProductSale = saleProductSale;
-    }
+    private Set<SaleProduct> saleProductsSale;
 
     public Long getId() {
     return id;
@@ -91,7 +82,7 @@ public class Sale {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNumber(), getSaleDate(), getEmployeeId(), getClient(), saleProductSale);
+        return Objects.hash(getId(), getNumber(), getSaleDate(), getEmployeeId(), getClient());
     }
 
     @Override
@@ -102,7 +93,8 @@ public class Sale {
                 ", saleDate=" + saleDate +
                 ", employeeId='" + employeeId + '\'' +
                 ", client=" + client +
-                ", saleProductSale=" + saleProductSale +
+                ", saleProductsSale=" + saleProductsSale +
                 '}';
     }
+
 }
