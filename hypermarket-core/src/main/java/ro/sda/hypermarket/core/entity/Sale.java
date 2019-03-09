@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "sales", schema = "hypermarket")
@@ -24,6 +25,17 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @OneToMany(mappedBy = "sale")
+    private Set<SaleProduct> saleProductSale;
+
+    public Set<SaleProduct> getSaleProductSet() {
+        return saleProductSale;
+    }
+
+    public void setSaleProductSet(Set<SaleProduct> saleProductSale) {
+        this.saleProductSale = saleProductSale;
+    }
 
     public Long getId() {
     return id;
@@ -74,13 +86,24 @@ public class Sale {
                 Objects.equals(getNumber(), sale.getNumber()) &&
                 Objects.equals(getSaleDate(), sale.getSaleDate()) &&
                 Objects.equals(getEmployeeId(), sale.getEmployeeId()) &&
-                Objects.equals(getClient(), sale.getClient());
+                Objects.equals(getClient(), sale.getClient()) &&
+                Objects.equals(saleProductSale, sale.saleProductSale);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNumber(), getSaleDate(), getEmployeeId(), getClient());
+        return Objects.hash(getId(), getNumber(), getSaleDate(), getEmployeeId(), getClient(), saleProductSale);
     }
 
-
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", number=" + number +
+                ", saleDate=" + saleDate +
+                ", employeeId='" + employeeId + '\'' +
+                ", client=" + client +
+                ", saleProductSale=" + saleProductSale +
+                '}';
+    }
 }
