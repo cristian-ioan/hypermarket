@@ -86,8 +86,7 @@ public class Sale {
                 Objects.equals(getNumber(), sale.getNumber()) &&
                 Objects.equals(getSaleDate(), sale.getSaleDate()) &&
                 Objects.equals(getEmployeeId(), sale.getEmployeeId()) &&
-                Objects.equals(getClient(), sale.getClient()) &&
-                Objects.equals(saleProductSale, sale.saleProductSale);
+                Objects.equals(getClient(), sale.getClient());
     }
 
     @Override

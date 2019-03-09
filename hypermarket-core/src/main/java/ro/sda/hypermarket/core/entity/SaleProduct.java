@@ -55,6 +55,16 @@ public class SaleProduct {
     }
 
     @Override
+    public String toString() {
+        return "SaleProduct{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", sale=" + sale +
+                ", product=" + product +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SaleProduct)) return false;
@@ -68,16 +78,6 @@ public class SaleProduct {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getQuantity(), getSale(), getProduct());
-    }
-
-    @Override
-    public String toString() {
-        return "SaleProduct{" +
-                "id=" + id +
-                ", quantity=" + quantity +
-                ", sale=" + sale +
-                ", product=" + product +
-                '}';
     }
 
 }

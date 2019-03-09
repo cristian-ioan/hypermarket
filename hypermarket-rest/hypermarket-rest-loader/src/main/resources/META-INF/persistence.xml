@@ -10,6 +10,7 @@
         <class>ro.sda.hypermarket.core.entity.Employee</class>
         <class>ro.sda.hypermarket.core.entity.Department</class>
         <class>ro.sda.hypermarket.core.entity.SaleProduct</class>
+        <class>ro.sda.hypermarket.core.entity.Sale</class>
         <class>ro.sda.hypermarket.core.entity.Client</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
