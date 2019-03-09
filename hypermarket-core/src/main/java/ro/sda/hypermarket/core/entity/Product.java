@@ -3,6 +3,7 @@ package ro.sda.hypermarket.core.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "products", schema = "hypermarket")
@@ -32,6 +33,17 @@ public class Product {
     @ManyToOne
     @JoinColumn (name = "category_id")
     private ProductCategory productCategory;
+
+    @OneToMany(mappedBy = "product")
+    private Set<SaleProduct> saleProductProduct;
+
+    public Set<SaleProduct> getSaleProductProduct() {
+        return saleProductProduct;
+    }
+
+    public void setSaleProductProduct(Set<SaleProduct> saleProductProduct) {
+        this.saleProductProduct = saleProductProduct;
+    }
 
     public Long getId() {
         return id;
@@ -100,13 +112,13 @@ public class Product {
                 Objects.equals(getVendingPrice(), product.getVendingPrice()) &&
                 Objects.equals(getStock(), product.getStock()) &&
                 Objects.equals(getSupplier(), product.getSupplier()) &&
-                Objects.equals(getProductCategory(), product.getProductCategory());
+                Objects.equals(getProductCategory(), product.getProductCategory()) &&
+                Objects.equals(getSaleProductProduct(), product.getSaleProductProduct());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getSupplierPrice(), getVendingPrice(), getStock(),
-                getSupplier(), getProductCategory());
+        return Objects.hash(getId(), getName(), getSupplierPrice(), getVendingPrice(), getStock(), getSupplier(), getProductCategory(), getSaleProductProduct());
     }
 
     @Override
@@ -119,6 +131,7 @@ public class Product {
                 ", stock=" + stock +
                 ", supplier=" + supplier +
                 ", productCategory=" + productCategory +
+                ", saleProductProduct=" + saleProductProduct +
                 '}';
     }
 }

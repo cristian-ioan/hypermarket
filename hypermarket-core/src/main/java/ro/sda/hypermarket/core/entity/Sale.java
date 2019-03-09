@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "sales", schema = "hypermarket")
@@ -24,6 +25,9 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @OneToMany(mappedBy = "sale")
+    private Set<SaleProduct> saleProductsSale;
 
     public Long getId() {
     return id;
@@ -65,6 +69,25 @@ public class Sale {
         this.client = client;
     }
 
+    public Set<SaleProduct> getSaleProductsSale() {
+        return saleProductsSale;
+    }
+
+    public void setSaleProductsSale(Set<SaleProduct> saleProductsSale) {
+        this.saleProductsSale = saleProductsSale;
+    }
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", number=" + number +
+                ", saleDate=" + saleDate +
+                ", employeeId='" + employeeId + '\'' +
+                ", client=" + client +
+                ", saleProductsSale=" + saleProductsSale +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,13 +97,13 @@ public class Sale {
                 Objects.equals(getNumber(), sale.getNumber()) &&
                 Objects.equals(getSaleDate(), sale.getSaleDate()) &&
                 Objects.equals(getEmployeeId(), sale.getEmployeeId()) &&
-                Objects.equals(getClient(), sale.getClient());
+                Objects.equals(getClient(), sale.getClient()) &&
+                Objects.equals(getSaleProductsSale(), sale.getSaleProductsSale());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNumber(), getSaleDate(), getEmployeeId(), getClient());
+        return Objects.hash(getId(), getNumber(), getSaleDate(), getEmployeeId(), getClient(), getSaleProductsSale());
     }
-
 
 }
