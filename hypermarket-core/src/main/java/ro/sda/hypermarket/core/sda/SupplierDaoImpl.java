@@ -53,8 +53,8 @@ public class SupplierDaoImpl implements SupplierDao {
     }
 
     @Override
-    public void deleteSupplier(Supplier supplier) {
-        getCurrentSession().delete(supplier);
-        getCurrentSession().flush();
+    public void deleteSupplier(Long id) {
+
+
     }
 }

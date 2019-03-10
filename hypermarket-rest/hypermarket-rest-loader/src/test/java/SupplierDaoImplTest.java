@@ -34,25 +34,15 @@ public class SupplierDaoImplTest {
 
     @Test
     public void testGetByIdSupplier(){
-        Supplier supplier = supplierDao.getById(5L);
+        Supplier supplier = supplierDao.getById(1L);
 
         Long supplierId = supplier.getId();
         String supplierName = supplier.getName();
         String supplierCity = supplier.getCity();
 
-        Assert.assertEquals("Albinuta SRL", supplierName);
+        Assert.assertEquals("Albinuta", supplierName);
         Assert.assertEquals("Iasi", supplierCity);
-        Assert.assertEquals(new Long(5), supplierId);
-
-    }
-
-    @Test
-    public void testDeleteSupplier(){
-
-        Supplier supplier = supplierDao.getById(5L);
-
-        supplierDao.deleteSupplier(supplier);
-        Assert.assertNull(supplier);
+        Assert.assertEquals(new Long(1), supplierId);
 
     }
 
@@ -60,6 +50,15 @@ public class SupplierDaoImplTest {
     public void getAllSuppliers(){
         List<Supplier> allSuppliers = supplierDao.getAll();
         System.out.println(allSuppliers);
+    }
+
+    @Test
+    public void testDeleteSupplier(){
+
+        supplierDao.deleteSupplier(1L);
+
+        Assert.assertEquals(null,supplierDao.getById(1L));
+
     }
 
 
