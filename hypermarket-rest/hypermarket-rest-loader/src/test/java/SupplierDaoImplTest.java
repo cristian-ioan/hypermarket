@@ -81,5 +81,19 @@ public class SupplierDaoImplTest {
 
     }
 
+    @Test
+    public void testUpdateSupplierTest(){
+
+        Supplier supplier = supplierDao.getById(14L);
+
+        supplier.setCity("Iasi");
+        String supplierCity = supplier.getCity();
+
+        supplierDao.updateSupplier(supplier);
+
+        Assert.assertEquals("Iasi", supplierCity);
+
+    }
+
 
 }
