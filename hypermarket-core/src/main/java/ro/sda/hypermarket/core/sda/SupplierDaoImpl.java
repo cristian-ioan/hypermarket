@@ -35,9 +35,9 @@ public class SupplierDaoImpl implements SupplierDao {
     @Override
     public List<Supplier> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        CriteriaQuery<Supplier> criteriaQueryq = session.getCriteriaBuilder().createQuery(Supplier.class);
-        criteriaQueryq.from(Supplier.class);
-        List<Supplier> allSuppliers = session.createQuery(criteriaQueryq).getResultList();
+        CriteriaQuery<Supplier> criteriaQuery = session.getCriteriaBuilder().createQuery(Supplier.class);
+        criteriaQuery.from(Supplier.class);
+        List<Supplier> allSuppliers = session.createQuery(criteriaQuery).getResultList();
         return allSuppliers;
     }
 
@@ -54,7 +54,10 @@ public class SupplierDaoImpl implements SupplierDao {
 
     @Override
     public void deleteSupplier(Supplier supplier) {
-        getCurrentSession().delete(supplier);
-        getCurrentSession().flush();
+        Transaction tr = sessionFactory.getCurrentSession().beginTransaction();
+        Supplier supplier1 = getById(supplier.getId());
+        sessionFactory.getCurrentSession().delete(supplier1);
+        sessionFactory.getCurrentSession().flush();
+        tr.commit();
     }
 }
