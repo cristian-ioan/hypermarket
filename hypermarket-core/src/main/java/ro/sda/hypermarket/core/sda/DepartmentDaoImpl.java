@@ -24,10 +24,7 @@ public class DepartmentDaoImpl implements DepartmentDao{
 
     @Override
     public Department createDepartment(Department department) {
-        sessionFactory.getCurrentSession().beginTransaction();
         getCurrentSession().save(department);
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().getTransaction().commit();
         return department;
     }
 
