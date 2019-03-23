@@ -27,19 +27,19 @@ public class Employee {
     @Column(name = "jobTitle", length = 40, nullable = false)
     private String jobTitle;
 
-    @ManyToOne
-    @JoinColumn(name = "departemnt_id")
-    private Department department;
-
     @Column(name = "city", length = 40, nullable = false)
     private String city;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @ManyToOne(cascade={CascadeType.MERGE})
     @JoinColumn(name="manager_id")
     private Employee manager;
 
-    @OneToMany(mappedBy="manager")
-    private Set<Employee> subordinates = new HashSet<>();
+//    @OneToMany(mappedBy="manager")
+//    private Set<Employee> subordinates = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -47,6 +47,62 @@ public class Employee {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -59,14 +115,14 @@ public class Employee {
                 Objects.equals(lastName, employee.lastName) &&
                 Objects.equals(salary, employee.salary) &&
                 Objects.equals(jobTitle, employee.jobTitle) &&
-                Objects.equals(department, employee.department) &&
                 Objects.equals(city, employee.city) &&
+                Objects.equals(department, employee.department) &&
                 Objects.equals(manager, employee.manager);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), firstName, lastName, salary, jobTitle, department, city, manager);
+        return Objects.hash(getId(), firstName, lastName, salary, jobTitle, city, department, manager);
     }
 
     @Override
@@ -77,9 +133,10 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +
                 ", jobTitle='" + jobTitle + '\'' +
-                ", department=" + department +
                 ", city='" + city + '\'' +
+                ", department=" + department +
                 ", manager=" + manager +
                 '}';
     }
+
 }

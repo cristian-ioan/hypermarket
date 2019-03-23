@@ -8,7 +8,6 @@ import java.util.List;
 public interface SupplierDao {
 
     Session getCurrentSession();
-
     Supplier getById(Long id);
     List<Supplier> getAll();
     Supplier createSupplier(Supplier supplier);
