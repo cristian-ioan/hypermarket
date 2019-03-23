@@ -50,25 +50,19 @@ public class SupplierDaoImplTest {
     public void testDeleteSupplier(){
 
         Supplier supplier = supplierDao.getById(1L);
-
         supplierDao.deleteSupplier(supplier);
-
         List<Supplier> allSuppliers = supplierDao.getAll();
-
         Assert.assertTrue(allSuppliers.isEmpty());
-
     }
 
     @Test
     public void testDeleteSupplier1(){
 
         List<Supplier> allSuppliers1 = supplierDao.getAll();
+
         int size1 = allSuppliers1.size();
-
         Supplier supplier = supplierDao.getById(15L);
-
         supplierDao.deleteSupplier(supplier);
-
         List<Supplier> allSuppliers2 = supplierDao.getAll();
         int size2 = allSuppliers2.size();
 

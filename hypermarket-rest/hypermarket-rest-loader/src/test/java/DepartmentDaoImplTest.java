@@ -19,7 +19,7 @@ public class DepartmentDaoImplTest {
     private DepartmentDao departmentDAO;
 
     @Test
-    public void createClientTest() {
+    public void createDepartmentTest() {
 
         Department department = new Department();
         department.setName("Sales");
@@ -38,26 +38,19 @@ public class DepartmentDaoImplTest {
     @Test
     public void updateDepartmentTest(){
 
-        Department department = departmentDAO.getById(2L);
+        Department department = departmentDAO.getById(1L);
         department.setName("HR");
         departmentDAO.updateDepartment(department);
         List<Department> departments = departmentDAO.getAll();
-        Assert.assertEquals("HR", departments.get(1).getName());
+        Assert.assertEquals("HR", departments.get(0).getName());
     }
+
 
     @Test
     public void deleteDepartmentTest(){
-        Department department = departmentDAO.getById(4L);
-        departmentDAO.deleteDepartment(department);
-        List<Department> departments = departmentDAO.getAll();
-        Assert.assertTrue(departments.isEmpty());
-    }
-
-    @Test
-    public void deleteDepartmentTest1(){
         List<Department> departments = departmentDAO.getAll();
         int size = departments.size();
-        Department department = departmentDAO.getById(4L);
+        Department department = departmentDAO.getById(3L);
         departmentDAO.deleteDepartment(department);
         departments = departmentDAO.getAll();
         Assert.assertEquals(size - 1, departments.size());
