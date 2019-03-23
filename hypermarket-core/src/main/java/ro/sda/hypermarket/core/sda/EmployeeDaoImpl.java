@@ -24,10 +24,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
     @Override
     public Employee createEmployee(Employee employee) {
-        sessionFactory.getCurrentSession().beginTransaction();
         getCurrentSession().save(employee);
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().getTransaction().commit();
         return employee;
     }
 
