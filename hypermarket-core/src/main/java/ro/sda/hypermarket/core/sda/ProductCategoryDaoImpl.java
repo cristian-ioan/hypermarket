@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import ro.sda.hypermarket.core.entity.ProductCategory;
 
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ProductCategoryDaoImpl implements ProductCategoryDao{
 
     @Override
     public Session getCurrentSession() {
-        return null;
+        return sessionFactory.getCurrentSession();
     }
 
     @Override
@@ -39,22 +40,18 @@ public class ProductCategoryDaoImpl implements ProductCategoryDao{
 
     @Override
     public List<ProductCategory> getAll() {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        CriteriaQuery<ProductCategory> criteriaQuery = session.getCriteriaBuilder().createQuery(ProductCategory.class);
+        criteriaQuery.from(ProductCategory.class);
+        List<ProductCategory> allProductCategories = session.createQuery(criteriaQuery).getResultList();
+        return allProductCategories;
     }
 
     @Override
     public ProductCategory createProductCategory(ProductCategory productCategory) {
-        return null;
+        getCurrentSession().save(productCategory);
+        return productCategory;
     }
-
-//        public ProductCategory createProductCategory(Long id, ProductCategory productCategory) {
-//            Employee employee = getCurrentSession().load(Employee.class, id);
-//            productCategory.setManagerId(employee);
-//            getCurrentSession().save(productCategory);
-//            return productCategory;
-//        }
-
-
 
     @Override
     public void updateProductCategory(ProductCategory productCategory) {
@@ -67,7 +64,11 @@ public class ProductCategoryDaoImpl implements ProductCategoryDao{
 
     @Override
     public void deleteProductCategory(ProductCategory productCategory) {
-
+        Transaction tr = sessionFactory.getCurrentSession().beginTransaction();
+        ProductCategory productCategory1 = getById(productCategory.getId());
+        sessionFactory.getCurrentSession().delete(productCategory1);
+        sessionFactory.getCurrentSession().flush();
+        tr.commit();
     }
 
 }
