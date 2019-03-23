@@ -22,27 +22,27 @@ public class ClientDaoImplTest {
     public void createClientTest() {
 
         Client client = new Client();
-        client.setName("Irina Mihai");
+        client.setName("Irina");
         clientDAO.createClient(client);
         List<Client> clients = clientDAO.getAll();
-        Assert.assertEquals("Irina Mihai", client.getName());
+        Assert.assertEquals("Irina", client.getName());
     }
 
     @Test
     public void getClientByIdTest() {
         Client client = new Client();
         Client client1 = clientDAO.getById(67L);
-        Assert.assertEquals("Irina Mihai", client1.getName());
+        Assert.assertEquals("Irina", client1.getName());
     }
 
     @Test
     public void updateClientTest(){
 
         Client client = clientDAO.getById(65L);
-        client.setName("Maria Lupu");
+        client.setName("Maria");
         clientDAO.updateClient(client);
         List<Client> clients = clientDAO.getAll();
-        Assert.assertEquals("Maria Lupu", clients.get(0).getName());
+        Assert.assertEquals("Maria", clients.get(0).getName());
     }
 
     @Test

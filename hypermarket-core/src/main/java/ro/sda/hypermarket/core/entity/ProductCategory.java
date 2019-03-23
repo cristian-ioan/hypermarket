@@ -16,11 +16,9 @@ public class ProductCategory {
     @Column(name = "name", length = 40, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "productCategory")
-    private Set<Product> product;
-
-    @Column(name = "manager_id", length = 10)
-    private Long managerId;
+    @OneToOne
+    @JoinColumn (name = "manager_id")
+    private Employee manager;
 
     public Long getId() {
         return id;
@@ -38,12 +36,12 @@ public class ProductCategory {
         this.name = name;
     }
 
-    public Long getManagerId() {
-        return managerId;
+    public Employee getManager() {
+        return manager;
     }
 
-    public void setManagerId(Long managerId) {
-        this.managerId = managerId;
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -53,13 +51,12 @@ public class ProductCategory {
         ProductCategory that = (ProductCategory) o;
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getName(), that.getName()) &&
-                Objects.equals(product, that.product) &&
-                Objects.equals(getManagerId(), that.getManagerId());
+                Objects.equals(getManager(), that.getManager());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), product, getManagerId());
+        return Objects.hash(getId(), getName(), getManager());
     }
 
     @Override
@@ -67,8 +64,7 @@ public class ProductCategory {
         return "ProductCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", product=" + product +
-                ", managerId=" + managerId +
+                ", manager=" + manager +
                 '}';
     }
 }

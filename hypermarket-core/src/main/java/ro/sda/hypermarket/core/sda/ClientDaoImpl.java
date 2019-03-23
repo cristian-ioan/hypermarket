@@ -24,10 +24,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Client createClient(Client client) {
-        sessionFactory.getCurrentSession().beginTransaction();
         getCurrentSession().save(client);
-        sessionFactory.getCurrentSession().flush();
-        sessionFactory.getCurrentSession().getTransaction().commit();
         return client;
     }
 

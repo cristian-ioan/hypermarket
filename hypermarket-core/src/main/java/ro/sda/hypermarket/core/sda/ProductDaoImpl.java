@@ -41,12 +41,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void updateProduc(Product product) {
+    public void updateProduct(Product product) {
 
     }
 
     @Override
-    public void deleteProduc(Product product) {
+    public void deleteProduct(Product product) {
 
     }
 }

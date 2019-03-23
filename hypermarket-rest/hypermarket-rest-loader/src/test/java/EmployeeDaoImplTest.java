@@ -22,16 +22,16 @@ public class EmployeeDaoImplTest {
     @Test
     public void createEmployeeTest(){
         Employee employee = new Employee();
-        employee.setFirstName("Madalina");
-        employee.setLastName("Mihai");
-        employee.setCity("Iasi");
+        employee.setFirstName("Bogdan");
+        employee.setLastName("Bogdan");
+        employee.setCity("Podul Iloaie");
         employee.setSalary(new BigDecimal(5200));
-        employee.setJobTitle("Manager");
+        employee.setJobTitle("dog chef");
         employeeDao.createEmployee(employee);
         List<Employee> employees = employeeDao.getAll();
 //        Assert.assertEquals(1, suppliers.size());
-        Assert.assertEquals("Madalina", employees.get(0).getFirstName());
-        Assert.assertEquals("Mihai", employees.get(0).getLastName());
+        Assert.assertEquals("Bogdan", employees.get(0).getFirstName());
+        Assert.assertEquals("Bogdan", employees.get(0).getLastName());
     }
 
     @Test
