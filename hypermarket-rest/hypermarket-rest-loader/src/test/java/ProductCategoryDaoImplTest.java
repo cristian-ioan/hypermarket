@@ -44,7 +44,7 @@ public class ProductCategoryDaoImplTest {
 
         List<ProductCategory> allProductCategories = productCategoryDao.getAll();
 
-        Assert.assertEquals(1, allProductCategories.size());
+        Assert.assertEquals(5, allProductCategories.size());
 
     }
 
@@ -69,13 +69,13 @@ public class ProductCategoryDaoImplTest {
     @Test
     public void testGetByIdProductCategory(){
 
-        ProductCategory productCategory = productCategoryDao.getById(4L);
+        ProductCategory productCategory = productCategoryDao.getById(1L);
 
         String productCategoryName = productCategory.getName();
         Long manager_id = productCategory.getManager().getId();
 
-        Assert.assertEquals("Chicks", productCategoryName);
-        Assert.assertEquals(new Long(16), manager_id);
+        Assert.assertEquals("chicks", productCategoryName);
+        Assert.assertEquals(new Long(2), manager_id);
 
     }
 
@@ -86,7 +86,7 @@ public class ProductCategoryDaoImplTest {
 
         int size1 = allProductCategories.size();
 
-        ProductCategory productCategory = productCategoryDao.getById(2L);
+        ProductCategory productCategory = productCategoryDao.getById(1L);
 
         productCategoryDao.deleteProductCategory(productCategory);
 
@@ -99,7 +99,7 @@ public class ProductCategoryDaoImplTest {
     @Test
     public void testUpdateProductCategory(){
 
-        ProductCategory productCategory = productCategoryDao.getById(4L);
+        ProductCategory productCategory = productCategoryDao.getById(1L);
 
         productCategory.setName("drinks");
         String updateName = productCategory.getName();
@@ -107,7 +107,7 @@ public class ProductCategoryDaoImplTest {
 
         productCategoryDao.updateProductCategory(productCategory);
 
-        Assert.assertEquals(new Long(16), managerId);
+        Assert.assertEquals(new Long(2), managerId);
         Assert.assertEquals("drinks", updateName);
 
     }

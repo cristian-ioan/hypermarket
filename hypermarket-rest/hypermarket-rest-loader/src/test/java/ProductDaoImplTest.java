@@ -89,7 +89,7 @@ public class ProductDaoImplTest {
         List<Product> allProducts1 = productDao.getAll();
 
         int size1 = allProducts1.size();
-        Product product = productDao.getById(3L);
+        Product product = productDao.getById(4L);
         productDao.deleteProduct(product);
         List<Product> allProducts2 = productDao.getAll();
         int size2 = allProducts2.size();

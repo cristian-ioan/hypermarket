@@ -18,6 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Override
     public Session getCurrentSession(){
         return sessionFactory.getCurrentSession();
     }
@@ -66,5 +67,4 @@ public class EmployeeDaoImpl implements EmployeeDao{
         sessionFactory.getCurrentSession().flush();
         tr.commit();
     }
-
 }
