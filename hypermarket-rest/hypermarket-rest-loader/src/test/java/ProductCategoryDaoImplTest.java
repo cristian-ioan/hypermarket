@@ -44,7 +44,7 @@ public class ProductCategoryDaoImplTest {
 
         List<ProductCategory> allProductCategories = productCategoryDao.getAll();
 
-        Assert.assertEquals(1, allProductCategories.size());
+        Assert.assertEquals(4, allProductCategories.size());
 
     }
 

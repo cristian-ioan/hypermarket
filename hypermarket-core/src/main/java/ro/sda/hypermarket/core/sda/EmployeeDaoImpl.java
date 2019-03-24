@@ -18,6 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Override
     public Session getCurrentSession(){
         return sessionFactory.getCurrentSession();
     }

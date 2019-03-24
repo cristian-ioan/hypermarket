@@ -2,10 +2,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ro.sda.hypermarket.core.entity.Supplier;
 import ro.sda.hypermarket.core.sda.SupplierDao;
+import ro.sda.hypermarket.core.service.SupplierService;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,17 +18,18 @@ import java.util.List;
 public class SupplierDaoImplTest {
 
     @Autowired
-    private SupplierDao supplierDao;
+    private SupplierService supplierService;
 
     @Test
+    @Rollback(false)
     public void testCreateSupplier(){
         // given
         Supplier supplier = new Supplier();
         // when
         supplier.setName("Albinuta");
-        supplier.setContactNo("074698564");
+        supplier.setContactNo("074698555");
         supplier.setCity("Iasi");
-        supplierDao.createSupplier(supplier);
+        supplierService.createSupplier(supplier, false);
         //then
         Assert.assertNotNull(supplier);
 
@@ -34,36 +37,36 @@ public class SupplierDaoImplTest {
 
     @Test
     public void testGetByIdSupplier(){
-        Supplier supplier = supplierDao.getById(11L);
+        Supplier supplier = supplierService.getById(11L);
 
         Long supplierId = supplier.getId();
         String supplierName = supplier.getName();
         String supplierCity = supplier.getCity();
 
-        Assert.assertEquals("Albinuta SRL", supplierName);
-        Assert.assertEquals("Iasi", supplierCity);
-        Assert.assertEquals(new Long(5), supplierId);
+        Assert.assertEquals("Pescarul Iscusit", supplierName);
+        Assert.assertEquals("Suceava", supplierCity);
+        Assert.assertEquals(new Long(11), supplierId);
 
     }
 
     @Test
     public void testDeleteSupplier(){
 
-        Supplier supplier = supplierDao.getById(1L);
-        supplierDao.deleteSupplier(supplier);
-        List<Supplier> allSuppliers = supplierDao.getAll();
+        Supplier supplier = supplierService.getById(22L);
+        supplierService.deleteSupplier(supplier);
+        List<Supplier> allSuppliers = supplierService.getAll();
         Assert.assertTrue(allSuppliers.isEmpty());
     }
 
     @Test
     public void testDeleteSupplier1(){
 
-        List<Supplier> allSuppliers1 = supplierDao.getAll();
+        List<Supplier> allSuppliers1 = supplierService.getAll();
 
         int size1 = allSuppliers1.size();
-        Supplier supplier = supplierDao.getById(15L);
-        supplierDao.deleteSupplier(supplier);
-        List<Supplier> allSuppliers2 = supplierDao.getAll();
+        Supplier supplier = supplierService.getById(16L);
+        supplierService.deleteSupplier(supplier);
+        List<Supplier> allSuppliers2 = supplierService.getAll();
         int size2 = allSuppliers2.size();
 
         Assert.assertEquals(size1 -1 , size2);
@@ -71,6 +74,8 @@ public class SupplierDaoImplTest {
     }
 
     @Test
+    @Transactional
+    @Rollback(false)
     public void getAllSuppliers(){
 
         Supplier supplier1 = new Supplier();
@@ -83,24 +88,24 @@ public class SupplierDaoImplTest {
         supplier2.setContactNo("0740655587");
         supplier2.setCity("Tg. Neamt");
 
-        supplierDao.createSupplier(supplier1);
-        supplierDao.createSupplier(supplier2);
+        supplierService.createSupplier(supplier1, false);
+        supplierService.createSupplier(supplier2, false);
 
-        List<Supplier> allSuppliers = supplierDao.getAll();
+        List<Supplier> allSuppliers = supplierService.getAll();
 
-        Assert.assertEquals(2, allSuppliers.size());
+        Assert.assertEquals(19, allSuppliers.size());
 
     }
 
     @Test
     public void testUpdateSupplierTest(){
 
-        Supplier supplier = supplierDao.getById(14L);
+        Supplier supplier = supplierService.getById(14L);
 
         supplier.setCity("Iasi");
         String supplierCity = supplier.getCity();
 
-        supplierDao.updateSupplier(supplier);
+        supplierService.updateSupplier(supplier);
 
         Assert.assertEquals("Iasi", supplierCity);
 

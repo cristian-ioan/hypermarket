@@ -1,5 +1,7 @@
 package ro.sda.hypermarket.core.entity;
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -7,12 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products", schema = "hypermarket")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Product extends BaseEntity {
 
     @Column(name = "name", length = 40, nullable = false)
     private String name;
@@ -43,14 +40,6 @@ public class Product {
 
     public void setSaleProductProduct(Set<SaleProduct> saleProductProduct) {
         this.saleProductProduct = saleProductProduct;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -124,7 +113,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", supplierPrice=" + supplierPrice +
                 ", vendingPrice=" + vendingPrice +

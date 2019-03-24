@@ -1,17 +1,14 @@
 package ro.sda.hypermarket.core.entity;
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "product_categories", schema = "hypermarket")
-public class ProductCategory {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class ProductCategory extends BaseEntity {
 
     @Column(name = "name", length = 40, nullable = false)
     private String name;
@@ -19,14 +16,6 @@ public class ProductCategory {
     @OneToOne
     @JoinColumn (name = "manager_id")
     private Employee manager;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -62,7 +51,7 @@ public class ProductCategory {
     @Override
     public String toString() {
         return "ProductCategory{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", manager=" + manager +
                 '}';
