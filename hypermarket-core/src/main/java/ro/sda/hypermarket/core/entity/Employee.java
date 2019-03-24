@@ -1,5 +1,7 @@
 package ro.sda.hypermarket.core.entity;
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -8,12 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employees", schema = "hypermarket")
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Employee extends BaseEntity {
 
     @Column(name = "firstName", length = 40, nullable = false)
     private String firstName;
@@ -40,14 +37,6 @@ public class Employee {
 
 //    @OneToMany(mappedBy="manager")
 //    private Set<Employee> subordinates = new HashSet<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -128,7 +117,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", salary=" + salary +

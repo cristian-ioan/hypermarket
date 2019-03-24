@@ -1,5 +1,7 @@
 package ro.sda.hypermarket.core.entity;
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
@@ -8,10 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "sales", schema = "hypermarket")
-public class Sale {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Sale extends BaseEntity {
 
     @Column( name = "invoice_number", length = 20, nullable = false)
     private Long number;
@@ -29,14 +28,6 @@ public class Sale {
 
     @OneToMany(mappedBy = "sale")
     private Set<SaleProduct> saleProductsSale;
-
-    public Long getId() {
-    return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getNumber() {
         return number;
@@ -90,7 +81,7 @@ public class Sale {
     @Override
     public String toString() {
         return "Sale{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", number=" + number +
                 ", saleDate=" + saleDate +
                 ", employeeId='" + employeeId + '\'' +

@@ -19,5 +19,5 @@
     <context:component-scan base-package="ro.sda" />
     <tx:annotation-driven />
     <mvc:annotation-driven />
-    <!--<jpa:repositories base-package="ro.sda.hypermarket.core.repository" />-->
+    <jpa:repositories base-package="ro.sda.hypermarket.core.repository" />
 </beans>
