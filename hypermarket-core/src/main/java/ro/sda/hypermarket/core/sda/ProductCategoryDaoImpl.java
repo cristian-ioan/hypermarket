@@ -30,15 +30,6 @@ public class ProductCategoryDaoImpl implements ProductCategoryDao{
     }
 
     @Override
-    public ProductCategory getProductCategoryByName(String name) {
-        Query query= sessionFactory.getCurrentSession().
-                createQuery("from ProductCategory where name=:name");
-        query.setParameter("name", name);
-        ProductCategory productCategory = (ProductCategory) ((org.hibernate.query.Query) query).uniqueResult();
-        return productCategory;
-    }
-
-    @Override
     public List<ProductCategory> getAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaQuery<ProductCategory> criteriaQuery = session.getCriteriaBuilder().createQuery(ProductCategory.class);

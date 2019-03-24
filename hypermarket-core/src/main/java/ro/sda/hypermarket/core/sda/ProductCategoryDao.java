@@ -10,7 +10,6 @@ public interface ProductCategoryDao {
     Session getCurrentSession();
     ProductCategory getById(Long id);
     List<ProductCategory> getAll();
-    ProductCategory getProductCategoryByName(String name);
     ProductCategory createProductCategory(ProductCategory productCategory);
     void updateProductCategory (ProductCategory productCategory);
     void deleteProductCategory(ProductCategory productCategory);

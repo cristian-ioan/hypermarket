@@ -4,6 +4,7 @@ import ro.sda.hypermarket.core.base.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,11 +15,12 @@ public class Sale extends BaseEntity {
     @Column( name = "invoice_number", length = 20, nullable = false)
     private Long number;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "sale_date", length = 8, nullable = false)
-    private LocalDate saleDate;
+    private Date saleDate;
 
     @Column(name = "employee_id", length = 10,nullable = false)
-    private String employeeId;
+    private Long employeeId;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -35,19 +37,19 @@ public class Sale extends BaseEntity {
         this.number = number;
     }
 
-    public LocalDate getSaleDate() {
+    public Date getSaleDate() {
         return saleDate;
     }
 
-    public void setSaleDate(LocalDate saleDate) {
+    public void setSaleDate(Date saleDate) {
         this.saleDate = saleDate;
     }
 
-    public String getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
     }
 

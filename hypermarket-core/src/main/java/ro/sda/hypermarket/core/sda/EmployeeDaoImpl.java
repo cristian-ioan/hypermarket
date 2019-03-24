@@ -67,5 +67,4 @@ public class EmployeeDaoImpl implements EmployeeDao{
         sessionFactory.getCurrentSession().flush();
         tr.commit();
     }
-
 }

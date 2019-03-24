@@ -18,6 +18,7 @@ public class ClientDaoImpl implements ClientDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Override
     public Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }

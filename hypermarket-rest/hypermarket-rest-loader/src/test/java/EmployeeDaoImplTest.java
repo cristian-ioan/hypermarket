@@ -76,7 +76,7 @@ public class EmployeeDaoImplTest {
     public void deleteEmployeeTest1(){
         List<Employee> employees = employeeDao.getAll();
         int size = employees.size();
-        Employee employee = employeeDao.getById(6L);
+        Employee employee = employeeDao.getById(3L);
         employeeDao.deleteEmployee(employee);
         employees = employeeDao.getAll();
         Assert.assertEquals(size - 1, employees.size());

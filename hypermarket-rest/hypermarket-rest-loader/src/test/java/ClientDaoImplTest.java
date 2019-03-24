@@ -50,7 +50,7 @@ public class ClientDaoImplTest {
     public void deleteClientTest1(){
         List<Client> clients = clientDAO.getAll();
         int size = clients.size();
-        Client client = clientDAO.getById(4L);
+        Client client = clientDAO.getById(1L);
         clientDAO.deleteClient(client);
         clients = clientDAO.getAll();
         Assert.assertEquals(size - 1, clients.size());
