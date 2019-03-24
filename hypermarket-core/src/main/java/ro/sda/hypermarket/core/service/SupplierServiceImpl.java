@@ -1,6 +1,6 @@
 package ro.sda.hypermarket.core.service;
 
-import org.hibernate.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,11 +49,11 @@ public class SupplierServiceImpl implements SupplierService{
 
     @Override
     @Transactional
-    public void updateSupplier(Supplier supplier, boolean useHibernate) {
+    public Supplier updateSupplier(Supplier supplier, boolean useHibernate) {
         if(useHibernate){
-            supplierDao.updateSupplier(supplier);
+            return supplierDao.updateSupplier(supplier);
         }
-        supplierRepository.save(supplier);
+        return supplierRepository.save(supplier);
     }
 
     @Override
