@@ -23,13 +23,19 @@ public class SupplierServiceImpl implements SupplierService{
     private SupplierRepository supplierRepository;
 
     @Override
-    public Supplier getById(Long id) {
-        return supplierDao.getById(id);
+    public Supplier getById(Long id, boolean useHibernate) {
+        if (useHibernate){
+            return supplierDao.getById(id);
+        }
+        return supplierRepository.findById(id);
     }
 
     @Override
-    public List<Supplier> getAll() {
-        return supplierDao.getAll();
+    public List<Supplier> getAll(boolean useHibernate) {
+        if (useHibernate){
+            return supplierDao.getAll();
+        }
+        return supplierRepository.findAll();
     }
 
     @Override
@@ -42,13 +48,20 @@ public class SupplierServiceImpl implements SupplierService{
     }
 
     @Override
-    public Supplier updateSupplier(Supplier supplier)
-    {
-        return supplierDao.updateSupplier(supplier);
+    @Transactional
+    public void updateSupplier(Supplier supplier, boolean useHibernate) {
+        if(useHibernate){
+            supplierDao.updateSupplier(supplier);
+        }
+        supplierRepository.save(supplier);
     }
 
     @Override
-    public void deleteSupplier(Supplier supplier) {
-        supplierDao.deleteSupplier(supplier);
+    @Transactional
+    public void deleteSupplier(Supplier supplier, boolean useHibernate) {
+        if (useHibernate){
+            supplierDao.deleteSupplier(supplier);
+        }
+        supplierRepository.delete(supplier);
     }
 }
