@@ -27,7 +27,7 @@ public class SupplierDaoImplTest {
         Supplier supplier = new Supplier();
         // when
         supplier.setName("Albinuta");
-        supplier.setContactNo("074698555");
+        supplier.setContactNo("074698560");
         supplier.setCity("Iasi");
         supplierService.createSupplier(supplier, false);
         //then
@@ -37,6 +37,7 @@ public class SupplierDaoImplTest {
 
     @Test
     public void testGetByIdSupplier(){
+
         Supplier supplier = supplierService.getById(14L, false);
 
         Long supplierId = supplier.getId();
