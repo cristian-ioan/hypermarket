@@ -6,7 +6,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ro.sda.hypermarket.core.entity.Supplier;
-import ro.sda.hypermarket.core.sda.SupplierDao;
 import ro.sda.hypermarket.core.service.SupplierService;
 
 import javax.transaction.Transactional;
@@ -114,6 +113,4 @@ public class SupplierDaoImplTest {
         Assert.assertEquals("Pascani", supplierCity);
 
     }
-
-
 }
