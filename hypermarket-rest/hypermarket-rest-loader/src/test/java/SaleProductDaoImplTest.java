@@ -2,14 +2,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ro.sda.hypermarket.core.entity.Product;
 import ro.sda.hypermarket.core.entity.Sale;
 import ro.sda.hypermarket.core.entity.SaleProduct;
-import ro.sda.hypermarket.core.sda.ProductDao;
-import ro.sda.hypermarket.core.sda.SaleDao;
-import ro.sda.hypermarket.core.sda.SaleProductDao;
+import ro.sda.hypermarket.core.service.ProductService;
+import ro.sda.hypermarket.core.service.SaleProductService;
+import ro.sda.hypermarket.core.service.SaleService;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -21,15 +22,16 @@ import java.util.List;
 public class SaleProductDaoImplTest {
 
     @Autowired
-    private SaleProductDao saleProductDao;
+    private SaleProductService saleProductService;
 
     @Autowired
-    private ProductDao productDao;
+    private ProductService productService;
 
     @Autowired
-    private SaleDao saleDao;
+    private SaleService saleService;
 
     @Test
+    @Rollback(false)
     public void testCreateSaleProduct(){
         SaleProduct saleProduct = new SaleProduct();
         Product product = new Product();
@@ -37,14 +39,14 @@ public class SaleProductDaoImplTest {
         product.setSupplierPrice(new BigDecimal(2.5));
         product.setVendingPrice(new BigDecimal(3));
         product.setStock(12);
-        productDao.createProduct(product);
+        productService.createProduct(product,false);
         saleProduct.setProduct(product);
         saleProduct.setQuantity(1L);
 
         Sale sale = new Sale();
-        sale = saleDao.getById(2L);
+        sale = saleService.getById(2L,false);
         saleProduct.setSale(sale);
-        saleProductDao.createSaleProduct(saleProduct);
+        saleProductService.createSaleProduct(saleProduct,false);
 
         Assert.assertNotNull(saleProduct);
     }
@@ -52,42 +54,67 @@ public class SaleProductDaoImplTest {
     @Test
     public void testGetByIdSaleProduct(){
 
-        SaleProduct saleProduct = saleProductDao.getById(1L);
+        SaleProduct saleProduct = saleProductService.getById(2L,false);
 
         Long quantity = saleProduct.getQuantity();
         Product product = saleProduct.getProduct();
         Sale sale = saleProduct.getSale();
 
         Assert.assertEquals(java.util.Optional.of(1L), java.util.Optional.of(quantity));
-        Assert.assertEquals(java.util.Optional.of(1L), java.util.Optional.of(product.getId()));
+        Assert.assertEquals(java.util.Optional.of(5L), java.util.Optional.of(product.getId()));
         Assert.assertEquals(java.util.Optional.of(2L), java.util.Optional.of(sale.getId()));
     }
 
     @Test
+    @Transactional
+    @Rollback(false)
     public void testUpdateSaleProduct(){
 
-        SaleProduct saleProduct = saleProductDao.getById(1L);
+        SaleProduct saleProduct = saleProductService.getById(2L,false);
 
         saleProduct.setQuantity(2L);
 
-        saleProductDao.updateSaleProduct(saleProduct);
+        saleProductService.updateSaleProduct(saleProduct,false);
 
         Assert.assertEquals(new Long(2), saleProduct.getQuantity());
 
     }
 
     @Test
+    @Transactional
+    @Rollback(false)
     public void testDeleteProductCategory(){
 
-        List<SaleProduct> allSaleProducts = saleProductDao.getAll();
+        List<SaleProduct> allSaleProducts = saleProductService.getAll(false);
         int size1 = allSaleProducts.size();
-        SaleProduct saleProduct = saleProductDao.getById(1L);
+        SaleProduct saleProduct = saleProductService.getById(3L,false);
 
-        saleProductDao.deleteSaleProduct(saleProduct);
+        saleProductService.deleteSaleProduct(saleProduct,false);
 
-        List<SaleProduct> allSalesProducts2 = saleProductDao.getAll();
+        List<SaleProduct> allSalesProducts2 = saleProductService.getAll(false);
         int size2 = allSalesProducts2.size();
 
         Assert.assertEquals(size1 -1 , size2);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void getAllSaleProductsTest(){
+        SaleProduct saleProduct = new SaleProduct();
+        saleProduct.setQuantity(15L);
+
+        Product product = productService.getById(2L,false);
+        saleProduct.setProduct(product);
+
+        Sale sale = new Sale();
+        sale = saleService.getById(2L,false);
+        saleProduct.setSale(sale);
+
+        saleProductService.createSaleProduct(saleProduct,false);
+
+        List<SaleProduct> saleProducts = saleProductService.getAll(false);
+        Assert.assertEquals(1, saleProducts.size());
+
     }
 }

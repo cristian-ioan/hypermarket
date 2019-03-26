@@ -107,7 +107,7 @@ public class ClientDaoImplTest {
 
         List<Client> clients = clientService.getAll(false);
         int size = clients.size();
-        Client client = clientService.getById(1L, false);
+        Client client = clientService.getById(5L, false);
         clientService.deleteClient(client, false);
         clients = clientService.getAll(false);
         Assert.assertEquals(size - 1, clients.size());

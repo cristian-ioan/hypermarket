@@ -73,19 +73,19 @@ public class SupplierDaoImplTest {
 
     }
 
-    @Test
-    public void testDeleteSupplier(){
-
-        Supplier supplier = supplierService.getById(27L, false);
-        supplierService.deleteSupplier(supplier, false);
-        List<Supplier> allSuppliers = supplierService.getAll(false);
-        Assert.assertTrue(allSuppliers.isEmpty());
-    }
+//    @Test
+//    public void testDeleteSupplier1(){
+//
+//        Supplier supplier = supplierService.getById(27L, false);
+//        supplierService.deleteSupplier(supplier, false);
+//        List<Supplier> allSuppliers = supplierService.getAll(false);
+//        Assert.assertTrue(allSuppliers.isEmpty());
+//    }
 
     @Test
     @Transactional
     @Rollback(false)
-    public void testDeleteSupplier1(){
+    public void testDeleteSupplier(){
 
         List<Supplier> allSuppliers1 = supplierService.getAll(false);
 

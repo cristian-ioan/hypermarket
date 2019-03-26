@@ -35,9 +35,6 @@ public class ProductDaoImplTest {
     @Autowired
     private SupplierService supplierService;
 
-//    @Autowired
-//    private SessionFactory sessionFactory;
-//
 
     @Test
     @Rollback(false)

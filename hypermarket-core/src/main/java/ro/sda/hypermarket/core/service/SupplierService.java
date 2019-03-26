@@ -1,8 +1,7 @@
 package ro.sda.hypermarket.core.service;
 
-import org.hibernate.Session;
-import ro.sda.hypermarket.core.entity.Supplier;
 
+import ro.sda.hypermarket.core.entity.Supplier;
 import java.util.List;
 
 public interface SupplierService {

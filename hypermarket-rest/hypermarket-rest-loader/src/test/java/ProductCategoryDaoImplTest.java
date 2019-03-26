@@ -9,6 +9,7 @@ import ro.sda.hypermarket.core.entity.Employee;
 import ro.sda.hypermarket.core.entity.ProductCategory;
 import ro.sda.hypermarket.core.sda.EmployeeDao;
 import ro.sda.hypermarket.core.sda.ProductCategoryDao;
+import ro.sda.hypermarket.core.service.EmployeeService;
 import ro.sda.hypermarket.core.service.ProductCategoryService;
 
 import javax.transaction.Transactional;
@@ -23,8 +24,8 @@ public class ProductCategoryDaoImplTest {
     @Autowired
     private ProductCategoryService productCategoryService;
 
-//    @Autowired
-//    private EmployeeService employeeService;
+    @Autowired
+    private EmployeeService employeeService;
 
     @Test
     @Transactional
@@ -37,7 +38,7 @@ public class ProductCategoryDaoImplTest {
         employee.setSalary(new BigDecimal(10000.0));
         employee.setJobTitle("Manager");
         employee.setCity("Podul Iloaiei");
-//        employee = employeeService.createEmployee(employee,false);
+        employee = employeeService.createEmployee(employee,false);
 
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("Chicks");
@@ -47,7 +48,7 @@ public class ProductCategoryDaoImplTest {
 
         List<ProductCategory> allProductCategories = productCategoryService.getAll(false);
 
-        Assert.assertEquals(4, allProductCategories.size());
+        Assert.assertEquals(1, allProductCategories.size());
 
     }
 
@@ -61,7 +62,7 @@ public class ProductCategoryDaoImplTest {
         employee.setSalary(new BigDecimal(10000.0));
         employee.setJobTitle("Manager");
         employee.setCity("Podul Iloaiei");
-//        employeeService.createEmployee(employee,false);
+        employeeService.createEmployee(employee,false);
         ProductCategory productCategory = new ProductCategory();
         productCategory.setName("chicks");
         productCategory.setManager(employee);
@@ -72,13 +73,13 @@ public class ProductCategoryDaoImplTest {
     @Test
     public void testGetByIdProductCategory(){
 
-        ProductCategory productCategory = productCategoryService.getById(4L,false);
+        ProductCategory productCategory = productCategoryService.getById(1L,false);
 
         String productCategoryName = productCategory.getName();
         Long manager_id = productCategory.getManager().getId();
 
         Assert.assertEquals("Chicks", productCategoryName);
-        Assert.assertEquals(new Long(16), manager_id);
+        Assert.assertEquals(new Long(7), manager_id);
 
     }
 
@@ -107,15 +108,12 @@ public class ProductCategoryDaoImplTest {
     @Rollback(false)
     public void testUpdateProductCategory(){
 
-        ProductCategory productCategory = productCategoryService.getById(4L,false);
+        ProductCategory productCategory = productCategoryService.getById(2L,false);
 
         productCategory.setName("drinks");
         String updateName = productCategory.getName();
-        Long managerId = productCategory.getManager().getId();
 
         productCategoryService.updateProductCategory(productCategory,false);
-
-        Assert.assertEquals(new Long(16), managerId);
         Assert.assertEquals("drinks", updateName);
 
     }

@@ -2,10 +2,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ro.sda.hypermarket.core.entity.Employee;
 import ro.sda.hypermarket.core.sda.EmployeeDao;
+import ro.sda.hypermarket.core.service.EmployeeService;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -17,9 +19,10 @@ import java.util.List;
 public class EmployeeDaoImplTest {
 
     @Autowired
-    private EmployeeDao employeeDao;
+    private EmployeeService employeeService;
 
     @Test
+    @Rollback(false)
     public void createEmployeeTest(){
         Employee employee = new Employee();
         employee.setFirstName("Bogdan");
@@ -27,62 +30,68 @@ public class EmployeeDaoImplTest {
         employee.setCity("Podul Iloaie");
         employee.setSalary(new BigDecimal(5200));
         employee.setJobTitle("dog chef");
-        employeeDao.createEmployee(employee);
-        List<Employee> employees = employeeDao.getAll();
+        employeeService.createEmployee(employee,false);
+        List<Employee> employees = employeeService.getAll(false);
 //        Assert.assertEquals(1, suppliers.size());
-        Assert.assertEquals("Bogdan", employees.get(0).getFirstName());
-        Assert.assertEquals("Bogdan", employees.get(0).getLastName());
+        Assert.assertEquals("Bogdan", employees.get(1).getFirstName());
+        Assert.assertEquals("Bogdan", employees.get(1).getLastName());
     }
 
     @Test
+    @Transactional
+    @Rollback(false)
     public void updateEmployeeTest() {
-        Employee employee = employeeDao.getById(1L);
+        Employee employee = employeeService.getById(4L,false);
         employee.setFirstName("Sorina");
         employee.setLastName("Boz");
         employee.setCity("Botosani");
         employee.setSalary(new BigDecimal(2100));
         employee.setJobTitle("Manager");
-        employeeDao.updateEmployee(employee);
-        List<Employee> employees = employeeDao.getAll();
-        Assert.assertEquals("Sorina", employees.get(0).getFirstName());
-        Assert.assertEquals("Boz", employees.get(0).getLastName());
-        Assert.assertEquals("Botosani", employees.get(0).getCity());
+        employeeService.updateEmployee(employee,false);
+        List<Employee> employees = employeeService.getAll(false);
+        Assert.assertEquals("Sorina", employees.get(2).getFirstName());
+        Assert.assertEquals("Boz", employees.get(2).getLastName());
+        Assert.assertEquals("Botosani", employees.get(2).getCity());
 //        Assert.assertEquals(2100, employees.get(0).getSalary());
-        Assert.assertEquals("Manager", employees.get(0).getJobTitle());
+        Assert.assertEquals("Manager", employees.get(2).getJobTitle());
     }
 
     @Test
     public void getEmployeeByIdTest(){
         Employee employee = new Employee();
-        employeeDao.getById(1L);
+        employeeService.getById(4L,false);
 
-        List<Employee> employees = employeeDao.getAll();
-        Assert.assertEquals("Madalina", employees.get(0).getFirstName());
-        Assert.assertEquals("Mihai", employees.get(0).getLastName());
-        Assert.assertEquals("Iasi", employees.get(0).getCity());
+        List<Employee> employees = employeeService.getAll(false);
+        Assert.assertEquals("Sorina", employees.get(2).getFirstName());
+        Assert.assertEquals("Boz", employees.get(2).getLastName());
+        Assert.assertEquals("Botosani", employees.get(2).getCity());
 //        Assert.assertEquals(5200, employees.get(0).getSalary());
-        Assert.assertEquals("Manager", employees.get(0).getJobTitle());
+        Assert.assertEquals("Manager", employees.get(2).getJobTitle());
     }
 
+//    @Test
+//    public void deleteEmployeeTest1(){
+//        Employee employee = employeeService.getById(3L,false);
+//        employeeService.deleteEmployee(employee,false);
+//        List<Employee> employees = employeeService.getAll(false);
+//        Assert.assertTrue (employees.isEmpty());
+//    }
+
     @Test
+    @Transactional
+    @Rollback(false)
     public void deleteEmployeeTest(){
-        Employee employee = employeeDao.getById(3L);
-        employeeDao.deleteEmployee(employee);
-        List<Employee> employees = employeeDao.getAll();
-        Assert.assertTrue (employees.isEmpty());
-    }
-
-    @Test
-    public void deleteEmployeeTest1(){
-        List<Employee> employees = employeeDao.getAll();
+        List<Employee> employees = employeeService.getAll(false);
         int size = employees.size();
-        Employee employee = employeeDao.getById(3L);
-        employeeDao.deleteEmployee(employee);
-        employees = employeeDao.getAll();
+        Employee employee = employeeService.getById(3L,false);
+        employeeService.deleteEmployee(employee,false);
+        employees = employeeService.getAll(false);
         Assert.assertEquals(size - 1, employees.size());
     }
 
     @Test
+    @Transactional
+    @Rollback(false)
     public void getAllEmployeesTest(){
         Employee employee = new Employee();
         employee.setFirstName("Cristiana");
@@ -90,7 +99,7 @@ public class EmployeeDaoImplTest {
         employee.setCity("Iasi");
         employee.setSalary(new BigDecimal(3200));
         employee.setJobTitle("Cashier");
-        employeeDao.createEmployee(employee);
+        employeeService.createEmployee(employee,false);
 
         Employee employee1 = new Employee();
         employee1.setFirstName("Lili");
@@ -98,8 +107,8 @@ public class EmployeeDaoImplTest {
         employee1.setCity("Targu Neamt");
         employee1.setSalary(new BigDecimal(2100));
         employee1.setJobTitle("Cashier");
-        employeeDao.createEmployee(employee1);
-        List<Employee> employees = employeeDao.getAll();
-        Assert.assertEquals(2, employees.size());
+        employeeService.createEmployee(employee1,false);
+        List<Employee> employees = employeeService.getAll(false);
+        Assert.assertEquals(4, employees.size());
     }
 }
